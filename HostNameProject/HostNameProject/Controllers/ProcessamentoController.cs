@@ -8,28 +8,16 @@ namespace HostNameProject.Controllers
     [ApiController]
     public class ProcessamentoController : ControllerBase
     {
-        public void Get()
+        public string Get()
         {
-            List<Thread> threads = new List<Thread>();
-            var dataInicio = DateTime.UtcNow;
-            while (true)
+            var x = 0.0001;
+            for (int i = 0; i < 1000000; i++)
             {
-                if (dataInicio.AddMinutes(1) <= DateTime.UtcNow)
-                    break;
-
-                threads.Add(new Thread(new ThreadStart(KillCore)));
+                x += Math.Sqrt(x);
             }
-        }
 
-        private void KillCore()
-        {
-            Random rand = new Random();
-            long num = 0;
-            while (true)
-            {
-                num += rand.Next(100, 1000);
-                if (num > 1000000) { num = 0; }
-            }
+            return "OK";
+
         }
     }
 }
