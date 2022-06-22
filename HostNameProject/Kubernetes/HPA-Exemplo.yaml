@@ -1,0 +1,52 @@
+#kubectl get hpa hpa-dotnet-application --watch
+#kubectl run -i --tty load-generator --rm --image=busybox:1.28 --restart=Never -- /bin/sh -c "while sleep 0.01; do wget -q -O- http://dotnet-application/processamento; done"
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dotnet-application
+spec:
+  selector:
+    matchLabels:
+      run: dotnet-application
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: dotnet-application
+    spec:
+      containers:
+      - name: dotnet-application
+        image: tauansantana/hostname:3
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            cpu: 500m
+          requests:
+            cpu: 200m
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dotnet-application
+spec:
+  selector:
+    run: dotnet-application
+  ports:
+    - port: 80
+      targetPort: 80
+  type: LoadBalancer
+
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+ name: hpa-dotnet-application
+spec:
+ scaleTargetRef:
+   apiVersion: apps/v1
+   kind: Deployment
+   name: dotnet-application
+ minReplicas: 1
+ maxReplicas: 5
+ targetCPUUtilizationPercentage: 50

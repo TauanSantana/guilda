@@ -3,7 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32414.318
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HostNameProject", "HostNameProject\HostNameProject.csproj", "{E671524E-204F-4948-910D-BD58FD50B61B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HostNameProject", "HostNameProject\HostNameProject.csproj", "{E671524E-204F-4948-910D-BD58FD50B61B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Kubernetes", "Kubernetes", "{E36A9F73-26AD-4DF2-8A2D-7CD50645D4F5}"
+	ProjectSection(SolutionItems) = preProject
+		Kubernetes\HPA-Exemplo.yaml = Kubernetes\HPA-Exemplo.yaml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
